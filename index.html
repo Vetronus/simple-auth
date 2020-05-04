@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="./index.css">
+	<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+	<script src="./ajad.js"></script>
+	<title>A modern URL shortener.</title>
+</head>
+<body>
+	
+	
+	<div class="wrapper">
+		<header id="heading">
+			<h1 id="heading2" style="font-size:32px; color: aquamarine;">Simple Authorization
+				<span class="spinner hide" id="spin-span"></span>
+			</h1>
+		</header>
+
+
+		<!-- Login Container -->
+		<div class="container" id="login-container">
+			<h1>Welcome</h1>
+			
+			<form class="form" id="login-form">
+				<input type="text" placeholder="Username" id="username-input">
+				<input type="password" placeholder="Password" id="pass-input">
+				<button type="submit" id="login-btn">Login</button>
+				<br>
+				<a href="#" id="div-changer-login">Create New Account</a>
+			</form>
+		</div>
+
+		<!-- Signup Container -->
+		<div class="container hide" id="signup-container">
+			<h1>New Account</h1>
+			
+			<form class="form" id="signup-form">
+				<input type="text" placeholder="Name" id="name-input">
+				<input type="text" placeholder="Username" id="signup-username-input">
+				<input type="password" placeholder="Password" id="signup-pass-input">
+				<button type="submit" id="create-btn">Create</button>
+				<br>
+				<a href="#" id="div-changer-signup">Login To Existing Account</a>
+			</form>
+		</div>
+
+		<!-- Account Container -->
+		<div class="container hide" id="account-container">
+
+			<div id="acount-data" style="width: 236px; margin-left: auto; margin-right: auto;">
+				<img src="ac-icon.svg" alt="" style="width: 100px; height: 100px;">
+				<h1>Welcome Back</h1> 
+				<h3 style="text-align: left;" id="name-p">Hello, Parth Sarthee</h3>
+				<h3 style="text-align: left;" id="username-p">@vetronus</h3>
+				<h3></h3>
+			</div>
+			<form class="form" id="account-form">
+				<button type="submit" id="logout-btn">Logout</button>
+				<br>
+				<button type="submit" id="delete-btn">Delete</button>
+			</form>
+		</div>
+
+		
+		<ul class="bg-bubbles">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+</html>
+
+<script src="./index.js"></script>
