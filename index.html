@@ -24,8 +24,8 @@
 			<h1>Welcome</h1>
 			
 			<form class="form" id="login-form">
-				<input type="text" placeholder="Username" id="username-input">
-				<input type="password" placeholder="Password" id="pass-input">
+				<input required maxlength="16" type="text" placeholder="Username" id="username-input">
+				<input required type="password" placeholder="Password" id="pass-input">
 				<button type="submit" id="login-btn">Login</button>
 				<br>
 				<a href="#" id="div-changer-login">Create New Account</a>
@@ -37,9 +37,9 @@
 			<h1>New Account</h1>
 			
 			<form class="form" id="signup-form">
-				<input type="text" placeholder="Name" id="name-input">
-				<input type="text" placeholder="Username" id="signup-username-input">
-				<input type="password" placeholder="Password" id="signup-pass-input">
+				<input required maxlength="16" type="text" placeholder="Name" id="name-input">
+				<input required maxlength="16" type="text" placeholder="Username" id="signup-username-input">
+				<input required type="password" placeholder="Password" id="signup-pass-input">
 				<button type="submit" id="create-btn">Create</button>
 				<br>
 				<a href="#" id="div-changer-signup">Login To Existing Account</a>

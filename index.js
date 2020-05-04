@@ -1,7 +1,6 @@
-_api = 'https://portfolioservicesapi.herokuapp.com/api/url/';
-let final = "https://authdemonstrator.netlify.app/";
-ajad("GET", "ping/it", {}, function(obj){});
-_api = 'https://portfolioservicesapi.herokuapp.com/api/user/';
+_api = 'https://portfolioservicesapi.herokuapp.com/api';
+let final = "https://simpleauth.netlify.app/";
+ajad("GET", "/url/ping/it", {}, function(obj){});
 
 
 let usernameInput = document.getElementById("username-input");
@@ -31,11 +30,12 @@ let accountForm = document.getElementById("account-form");
 let spinSpan = document.getElementById("spin-span");
 // let errSpan = document.getElementById('err-span');
 
-loginForm.addEventListener("submit", noSubmit);
-signupForm.addEventListener("submit", noSubmit);
+
+loginForm.addEventListener("submit", login);
+signupForm.addEventListener("submit", signup);
 accountForm.addEventListener("submit", noSubmit);
 
-function noSubmit(e){
+function noSubmit(e, x){
     e.preventDefault();
 }
 
@@ -53,37 +53,87 @@ signupDivChanger.addEventListener('click', ()=>{
 
 // still have to prevent default
 
-loginBtn.addEventListener("click", login);
-createBtn.addEventListener("click", signup);
+// loginBtn.addEventListener("click", login);
+// createBtn.addEventListener("click", signup);
 deleteBtn.addEventListener("click", remove);
 logoutBtn.addEventListener("click", logout);
 
-function login() {
+function login(e) {
+    e.preventDefault();
     spinSpan.classList.remove("hide");
-    // send the request to authenticate user
-    // show error if wrong id/pass or user doesn't exists
-    // finally do this
-    loginDiv.classList.add("hide");
-    signupDiv.classList.add("hide");
-    accountDiv.classList.remove("hide");
-    spinSpan.classList.add("hide");
+    let data = {
+        id: usernameInput.value,
+        pass: passInput.value
+    }
+
+    ajad("POST", "/auth", data, function(obj, status){
+        if(status < 400){
+            _jwt = obj.obj;
+            ajad("GET", "/user", {}, function(obj2, status2){
+                if(status2 < 400){
+                    // reset the form
+                    usernameInput.value = "";
+                    passInput.value = "";
+
+                    // change the name and username of the accound div
+                    namePara.innerText = "Hello, " + obj2.obj.name;
+                    usernamePara.innerText = "@" + obj2.obj.id;
+
+                    // handle what div will be visisble
+                    loginDiv.classList.add("hide");
+                    signupDiv.classList.add("hide");
+                    accountDiv.classList.remove("hide");
+                }
+                else{
+                    alert(obj.obj);
+                }
+                spinSpan.classList.add("hide");
+            })
+        }
+        else{
+            alert(obj.obj);
+            spinSpan.classList.add("hide");
+        }
+    })
 }
 
-function signup(){
+function signup(e){
+    e.preventDefault();
     spinSpan.classList.remove("hide");
-    // send the request to create new user
-    // show error if wrong id/pass or user doesn't exists
-    // finally do this
-    loginDiv.classList.add("hide");
-    signupDiv.classList.add("hide");
-    accountDiv.classList.remove("hide");
-    spinSpan.classList.add("hide");
+    let data = {
+        name: nameInput.value,
+        id: usernameInput2.value,
+        pass: passInput2.value
+    }
+
+    ajad("POST", "/user", data, function(obj, status){
+        if(status < 400){
+            // reset the form value
+            usernameInput.value = "";
+            passInput.value = "";
+            nameInput.value = "";
+            usernameInput2.value = "";
+            passInput2.value = "";
+
+            // change the name and username of the accound div
+            namePara.innerText = "Hello, " + obj.obj.name;
+            usernamePara.innerText = "@" + obj.obj.id;
+
+            // handle what div will be visisble
+            loginDiv.classList.add("hide");
+            signupDiv.classList.add("hide");
+            accountDiv.classList.remove("hide");
+        }
+        else{
+            alert(obj.obj);
+        }
+        spinSpan.classList.add("hide");
+    })
 }
 
 function logout(){
     spinSpan.classList.remove("hide");
-    // remove jwt from localstorage
-    // then do this
+    _jwt = "";
     signupDiv.classList.add("hide");
     accountDiv.classList.add("hide");
     loginDiv.classList.remove("hide");
@@ -92,14 +142,18 @@ function logout(){
 
 function remove(){
     spinSpan.classList.remove("hide");
-    // remove jwt from localstorage
-    // send request to remove user from db
-    // show error if encountered any
-    // then do this
-    signupDiv.classList.add("hide");
-    accountDiv.classList.add("hide");
-    loginDiv.classList.remove("hide");
-    spinSpan.classList.add("hide");
+    ajad("DELETE", "/user", {}, function(obj, status){
+        if(status < 400){
+            _jwt = "";
+            signupDiv.classList.add("hide");
+            accountDiv.classList.add("hide");
+            loginDiv.classList.remove("hide");
+        }
+        else{
+            alert(obj.obj);
+        }
+        spinSpan.classList.add("hide");
+    })
 }
 
 
